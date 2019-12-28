@@ -35,15 +35,45 @@ class Dashboard extends CI_Controller
 
     public function spminboundmonitoring()
     {
-      $this->load->view('dashboard/header');
-      $this->load->view('dashboard/spm/inboundbody');
-      $this->load->view('dashboard/footer');
+        $this->load->view('dashboard/header');
+        $this->load->view('dashboard/spm/inboundbody');
+        $this->load->view('dashboard/footer');
     }
     public function spmhubinventory()
     {
-      $this->load->view('dashboard/header');
-      $this->load->view('dashboard/spm/hubinventorybody');
-      $this->load->view('dashboard/footer');
+
+        $this->load->view('dashboard/header');
+        $this->load->view('dashboard/spm/hubinventorybody');
+        $this->load->view('dashboard/footer');
+    }
+
+    public function spmhubadditem()
+    {
+
+        $this->form_validation->set_rules('partno', 'Part No', 'required');
+
+        if ($this->form_validation->run() == false) {
+
+            $result = array(
+                'error' => true,
+                'message' => 'Part No is Required.');
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+
+        } else {
+            $partno = $this->input->post('partno');
+
+            $result = array(
+                'error' => false,
+                'message' => 'Add Item Success');
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+        }
+
     }
 
 }
