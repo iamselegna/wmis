@@ -42,22 +42,41 @@ class Dashboard extends CI_Controller
     public function spmhubinventory()
     {
         $searchItem = $this->input->post('searchItem');
-        $selectEntries = $this->input->post('selectEntries');
+        $selectEntries = $this->input->get('show_entries');
+        $limit = 0;
 
-        $itemCount = $this->spmhubinventory_model->get_spm_hub_item_count();
+        if ($selectEntries != null) {
+            $limit = $selectEntries;
+        } else {
+            $limit = 10;
+        }
+
+        $hubcount = $this->spmhubinventory_model->get_spm_hub_item_count();
+
         $paginationConfig['base_url'] = base_url('dashboard/spmhubinventory/');
-        $paginationConfig['per_page'] = 10;
-        $paginationConfig['enable_query_strings'] = TRUE;
+        $paginationConfig['per_page'] = $limit;
+        $paginationConfig['enable_query_strings'] = true;
         $paginationConfig['uri_segment'] = 3;
-        $paginationConfig['use_page_numbers'] = TRUE;
-        
+        $paginationConfig['reuse_query_string'] = true;
 
-        if ($searchItem != null) {
-            $result = $this->spmhubinventory_model->get_searched_hub_item();
+        $paginationConfig['attributes'] =array('class'=>'page-link');
+
+        $paginationConfig['full_tag_open'] = '<nav aria-label="SPM Hub Inventory Pagination"><ul class="pagination justify-content-end">';
+        $paginationConfig['full_tag_close'] = '</ul></nav>';
+
+        $paginationConfig['first_tag_open'] = '<li class="page-item">';
+        $paginationConfig['first_tag_close'] = '</li>';
+
+        $paginationConfig['cur_tag_open'] = ' <li class="page-item active" aria-current="page"><span class="page-link">';
+        $paginationConfig['cur_tag_close'] = '</span></li>';
+
+        if ($searchItem !== null) {
+            $result = $this->spmhubinventory_model->get_searched_hub_item($searchItem);
             $paginationConfig['total_rows'] = $result['numrows'];
         } else {
-            $result = $this->spmhubinventory_model->get_all_hub_item();
-            $paginationConfig['total_rows'] = $result['numrows'];
+            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+            $result = $this->spmhubinventory_model->get_all_hub_item($page, $paginationConfig['per_page']);
+            $paginationConfig['total_rows'] = $hubcount['ItemCount'];
         }
 
         
@@ -65,9 +84,10 @@ class Dashboard extends CI_Controller
         $this->pagination->initialize($paginationConfig);
         $data = array(
             'tabledata' => $result['tabledata'],
-            'itemcount' => $itemCount,
-            'totalrows' => $result['numrows'],
-            'pagelinks' => $this->pagination->create_links()
+            'stockCount' => $hubcount['StockCount'],
+            'totalrows' => $hubcount['ItemCount'],
+            'pagelinks' => $this->pagination->create_links(),
+            'selectedEntries' => $limit
         );
         $this->load->view('dashboard/header');
         $this->load->view('dashboard/spm/hubinventorybody', $data);

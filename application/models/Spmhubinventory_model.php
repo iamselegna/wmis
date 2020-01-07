@@ -34,14 +34,17 @@ class Spmhubinventory_model extends CI_Model
         //
     }
 
+    /*
+    *
+    *
+    */
     //Calls SPM Hub Inventory Table Stored Procedure *ViewAllSpmHubInventory
     //Display Data to Table
-    public function get_all_hub_item()
+    public function get_all_hub_item($offset, $limit)
     {
-
         $this->db->reconnect();
 
-        $query = $this->db->query('Call ViewAllSpmHubInventory()');
+        $query = $this->db->query('Call ViewAllSpmHubInventory('.$offset.','.$limit.')');
 
         $result = array('tabledata' => $query->result_array(), 'numrows' => $query->num_rows());
 
@@ -50,13 +53,12 @@ class Spmhubinventory_model extends CI_Model
         $this->db->close();
     }
 
-    public function get_searched_hub_item()
-    {
-        $searchItem = $this->input->post('searchItem');
 
+    public function get_searched_hub_item($searchItem)
+    {
         $this->db->reconnect();
 
-        $query = $this->db->query('Call SearchSpmHubInventory(?)', $searchItem);
+        $query = $this->db->query('CALL SearchSpmHubInventory('.$searchItem.')');
 
         $result = array('tabledata' => $query->result_array(), 'numrows' => $query->num_rows());
 
@@ -99,10 +101,12 @@ class Spmhubinventory_model extends CI_Model
     public function get_spm_hub_item_count()
     {
         $this->db->reconnect();
-        $query = $this->db->query('Call GetSpmHubInventoryItemCount');
+
+        $query = $this->db->query('Call GetSpmHubInventoryItemCount()');
         $rows = $query->row();
         if ($rows !== null) {
-            return $rows->ItemCount;
+            $data = array('StockCount' => $rows->StockCount, 'ItemCount'=>$rows->ItemCount);
+            return $data;
         }
         $this->db->close();
     }

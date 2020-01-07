@@ -32,7 +32,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Hub Item Count</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $itemcount; ?> Pcs</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $stockCount; ?> Pcs</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -85,14 +85,14 @@
                 </button>
             </form>
 
-            <form class="form-inline mb-2 float-right" id="showEntries" method="post">
+            <form class="form-inline mb-2 float-right" id="showEntries" method="get">
                 <label for="partno">Show</label>
                 <div class="input-group" style="margin-left: 6px; margin-right: 6px;">
-                    <select class="form-control" id="selectEntries">
-                        <option selected="selected">10</option>
-                        <option>25</option>
-                        <option>50</option>
-                        <option>100</option>
+                    <select class="form-control" id="selectEntries" name="show_entries">
+                        <option <?php echo($selectedEntries == 10 ? 'selected="selected"' : NULL); ?> >10</option>
+                        <option <?php echo($selectedEntries == 25 ? 'selected="selected"' : NULL); ?> >25</option>
+                        <option <?php echo($selectedEntries == 50 ? 'selected="selected"' : NULL); ?> >50</option>
+                        <option <?php echo($selectedEntries == 100 ? 'selected="selected"' : NULL); ?> >100</option>
                     </select>
                 </div>
                 <label for="partno">Entries</label>
