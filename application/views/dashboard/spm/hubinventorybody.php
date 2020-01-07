@@ -13,7 +13,8 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Add New Item</div>
-                            <a href="<?php echo base_url('dashboard/spmhubinventoryadditem');?>" class="btn btn-success btn-icon-split">
+                            <a href="<?php echo base_url('dashboard/spmhubinventoryadditem');?>"
+                                class="btn btn-success btn-icon-split">
                                 <span class="text">Add Item</span>
                             </a>
                         </div>
@@ -89,17 +90,17 @@
                 <label for="partno">Show</label>
                 <div class="input-group" style="margin-left: 6px; margin-right: 6px;">
                     <select class="form-control" id="selectEntries" name="show_entries">
-                        <option <?php echo($selectedEntries == 10 ? 'selected="selected"' : NULL); ?> >10</option>
-                        <option <?php echo($selectedEntries == 25 ? 'selected="selected"' : NULL); ?> >25</option>
-                        <option <?php echo($selectedEntries == 50 ? 'selected="selected"' : NULL); ?> >50</option>
-                        <option <?php echo($selectedEntries == 100 ? 'selected="selected"' : NULL); ?> >100</option>
+                        <option <?php echo($selectedEntries == 10 ? 'selected="selected"' : null); ?>>10</option>
+                        <option <?php echo($selectedEntries == 25 ? 'selected="selected"' : null); ?>>25</option>
+                        <option <?php echo($selectedEntries == 50 ? 'selected="selected"' : null); ?>>50</option>
+                        <option <?php echo($selectedEntries == 100 ? 'selected="selected"' : null); ?>>100</option>
                     </select>
                 </div>
                 <label for="partno">Entries</label>
             </form>
 
             <table class="table table-bordered table-striped table-hover">
-            <caption><?php echo $totalrows;?> Items <?php echo $pagelinks;?></caption>
+                <caption><?php echo $totalrows;?> Items <?php echo $pagelinks;?></caption>
                 <thead class="thead-dark">
                     <tr>
                         <th>Part No.</th>
