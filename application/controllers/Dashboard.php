@@ -33,12 +33,13 @@ class Dashboard extends CI_Controller
         $this->load->view('dashboard/footer');
     }
 
-    public function spminboundmonitoring()
-    {
-        $this->load->view('dashboard/header');
-        $this->load->view('dashboard/spm/inboundbody');
-        $this->load->view('dashboard/footer');
-    }
+    /* *
+    *
+    * SPM HUB INVENTORY MONITORING
+    *
+     */
+
+    
     public function spmhubinventory()
     {
         $searchItem = $this->input->post('searchItem');
@@ -122,6 +123,31 @@ class Dashboard extends CI_Controller
                 ->set_output(json_encode($result));
         }
     }
+    /* 
+    *
+    *   END SPM HUB INVENTORY MONITORING
+    *   
+     */
+
+
+    /* 
+    *
+    *   SPM INBOUND INVENTORY MONITORING
+    *
+     */
+    public function spminboundmonitoring()
+    {
+        $this->load->view('dashboard/header');
+        $this->load->view('dashboard/spm/inboundbody');
+        $this->load->view('dashboard/footer');
+    }
+
+     public function spmaddinboundinventory()
+     {
+         $this->load->view('dashboard/header');
+         $this->load->view('dashboard/spm/addinboundinventory');
+         $this->load->view('dashboard/footer');
+     }
 }
 
 /* End of file Dashboard.php */

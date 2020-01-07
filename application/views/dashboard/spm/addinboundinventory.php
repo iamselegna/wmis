@@ -3,12 +3,12 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">SP Mamplasan Hub Inventory Monitoring</h1>
+    <h1 class="h3 mb-4 text-gray-800">SP Mamplasan Inbound Inventory Monitoring</h1>
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?php echo base_url('dashboard');?>">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="<?php echo base_url('dashboard/spmhubinventory');?>">SPM Hub Inventory</a></li>
+            <li class="breadcrumb-item"><a href="<?php echo base_url('dashboard/spminboundmonitoring');?>">SPM Inbound Inventory</a></li>
             <li class="breadcrumb-item active" aria-current="page">Add New Item</li>
         </ol>
     </nav>

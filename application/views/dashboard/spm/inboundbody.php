@@ -12,9 +12,9 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Add New Item
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Add Inbound Inventory
                                     </div>
-                                    <a href="<?php echo base_url('dashboard/spmhubinventoryadditem');?>"
+                                    <a href="<?php echo base_url('dashboard/spmaddinboundinventory');?>"
                                         class="btn btn-success btn-icon-split">
                                         <span class="text">Add Item</span>
                                     </a>
