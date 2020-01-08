@@ -16,7 +16,7 @@
                                     </div>
                                     <a href="<?php echo base_url('dashboard/spmaddinboundinventory');?>"
                                         class="btn btn-success btn-icon-split">
-                                        <span class="text">Add Item</span>
+                                        <span class="text">Add Inbound Details</span>
                                     </a>
                                 </div>
                                 <div class="col-auto">

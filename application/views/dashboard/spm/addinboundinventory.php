@@ -8,30 +8,70 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?php echo base_url('dashboard');?>">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="<?php echo base_url('dashboard/spminboundmonitoring');?>">SPM Inbound Inventory</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Add New Item</li>
+            <li class="breadcrumb-item"><a href="<?php echo base_url('dashboard/spminboundmonitoring');?>">SPM Inbound
+                    Inventory</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Inbound Details</li>
         </ol>
     </nav>
 
     <!-- Add New SPM Hub Item -->
-    <div class="card shadow mb-4 border-bottom-primary">
+    <div class="card shadow mb-4 border-bottom-primary col-lg-8">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Add Item</h6>
+            <h6 class="m-0 font-weight-bold text-primary">New Inbound Details</h6>
         </div>
         <div class="card-body">
-            <form class="form-inline" id="addspmitem" >
-                <label for="partno">Part No</label>
-                <div class="input-group" style="margin-left: 6px; margin-right: 6px;">
-                    <input type="text" name="partno" id="partno" class="form-control" palceholder="Add new item">
+
+            <form method="post">
+                <div class="form-group row">
+                    <label for="arno" class="col-sm-3 col-lg-4 col-form-label">Acknowledgement Receipt No.</label>
+                    <div class="col-sm-9 col-lg-8"><input type="text" class="form-control" id="arno"></div>
                 </div>
-                <button type="submit" class="btn btn-success btn-icon-split">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-check"></i>
-                    </span>
-                    <span class="text">Submit</span>
-                </button>
-                <small id="spmadditemmessage" class="ml-2 form-text"></small>
+                <div class="form-group row">
+                    <label for="datein" class="col-sm-3 col-lg-4 col-form-label">Date In</label>
+                    <div class="col-sm-9 col-lg-8"><input type="date" class="form-control" id="datein"></div>
+                </div>
+                <fieldset class="border p-1 mb-4 py-2 px-2">
+                    <legend class="w-auto">Add Items</legend>
+                    <button type="button" class="btn btn-info mb-2">Add Item</button>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Remove</th>
+                                <th scope="col">Part No.</th>
+                                <th scope="col">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><button type="button" class="btn btn-danger btn-block">Remove</button></td>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                            </tr>   
+                            <tr>
+                                <td><button type="button" class="btn btn-danger btn-block">Remove</button></td>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- <div id="inbounditems">
+                        <div class="form-group row">
+                            <label for="partno" class="col-sm-3 col-lg-4 col-form-label">Part No.</label>
+                            <div class="col-sm-9 col-lg-8"><input type="text" name="partno[]" class="form-control"
+                                    id="partno"></div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qty" class="col-sm-3 col-lg-4 col-form-label">Quantity</label>
+                            <div class="col-sm-9 col-lg-8"><input type="text" name="itemqty[]" class="form-control"
+                                    id="qty"></div>
+                        </div>
+                    </div> -->
+                </fieldset>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
     <!-- End of Add New SPM Hub Item-->
