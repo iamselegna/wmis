@@ -32,7 +32,15 @@
                 </div>
                 <fieldset class="border p-1 mb-4 py-2 px-2">
                     <legend class="w-auto">Add Items</legend>
-                    <button type="button" class="btn btn-info mb-2">Add Item</button>
+
+                    <div class="container px-3">
+                        <div class="row">
+                            <input type="text" id="finditem" class="form-control col-lg-4 mr-2">
+                            <button type="button" class="btn btn-info mb-2" onclick="addInboundListItem()">Add
+                                Item</button>
+                        </div>
+                    </div>
+
 
                     <table class="table table-bordered">
                         <thead>
@@ -42,20 +50,19 @@
                                 <th scope="col">Quantity</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="itemlistbody">
                             <tr>
-                                <td><button type="button" class="btn btn-danger btn-block">Remove</button></td>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                            </tr>   
-                            <tr>
-                                <td><button type="button" class="btn btn-danger btn-block">Remove</button></td>
+                                <td colspan="3">Please Insert Item(s)</td>
+                            </tr>
+                            <!-- <tr>
+                                <td><button type="button" class="btn btn-danger btn-block"
+                                        onclick="deleteInboundItem(this)">Remove</button></td>
                                 <th scope="row">2</th>
                                 <td>Jacob</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
-                    
+
                     <!-- <div id="inbounditems">
                         <div class="form-group row">
                             <label for="partno" class="col-sm-3 col-lg-4 col-form-label">Part No.</label>

@@ -11,15 +11,16 @@
 		"source": "https://github.com/bcit-ci/CodeIgniter"
 	},
 	"require": {
+		"twbs/bootstrap": "4.3.1",
 		"php": ">=5.3.7",
 		"datatables/datatables": "^1.10",
-		"nnnick/chartjs": "^2.9"
+		"nnnick/chartjs": "^2.9",
+		"components/jqueryui": "^1.12"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
 	},
 	"require-dev": {
-		"twbs/bootstrap": "4.3.1",
 		"mikey179/vfsStream": "1.1.*",
 		"phpunit/phpunit": "4.* || 5.*"
 	}

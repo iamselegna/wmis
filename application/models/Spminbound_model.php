@@ -1,12 +1,12 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  *
  * Model Spminbound_model
  *
  * This Model for ...
- * 
+ *
  * @package		CodeIgniter
  * @category	Model
  * @author    Setiawan Jodi <jodisetiawan@fisip-untirta.ac.id>
@@ -16,26 +16,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  */
 
-class Spminbound_model extends CI_Model {
+class Spminbound_model extends CI_Model
+{
 
   // ------------------------------------------------------------------------
 
-  public function __construct()
-  {
-    parent::__construct();
-  }
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-  // ------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
 
 
-  // ------------------------------------------------------------------------
-  public function index()
-  {
-    // 
-  }
+    // ------------------------------------------------------------------------
+    public function index()
+    {
+        //
+    }
 
-  // ------------------------------------------------------------------------
+    public function get_all_part_no($postData)
+    {
+        //$query = $this->db->query("CALL GetAllPartNo()");
+        $response = array();
 
+        if (isset($postData['search'])) {
+            $this->db->select('*')
+                    ->where("PartNo like '%".$postData['search']."%'");
+
+            $records = $this->db->get('spm_hub_inventory')->result();
+
+            foreach ($records as $rows) {
+                $response[] = array("label"=>$rows->PartNo,"value"=>$rows->ItemId);
+            }
+        }
+
+        
+        return $response;
+    }
+
+    // ------------------------------------------------------------------------
 }
 
 /* End of file Spminbound_model.php */

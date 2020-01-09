@@ -17,6 +17,9 @@
 
   <!-- Custom styles for this template-->
   <link href="<?php echo base_url(); ?>assets/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>assets/css/content.css" rel="stylesheet">
+  <!-- <link href="<?php echo base_url(); ?>assets/css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet"> -->
+  <link href="<?php echo base_url();?>vendor/components/jqueryui/themes/base/jquery-ui.min.css" rel="stylesheet">
 
 </head>
 

@@ -24,6 +24,7 @@ class Dashboard extends CI_Controller
     {
         parent::__construct();
         $this->load->model('spmhubinventory_model');
+        $this->load->model('spminbound_model');
     }
 
     public function index()
@@ -123,14 +124,14 @@ class Dashboard extends CI_Controller
                 ->set_output(json_encode($result));
         }
     }
-    /* 
+    /*
     *
     *   END SPM HUB INVENTORY MONITORING
-    *   
+    *
      */
 
 
-    /* 
+    /*
     *
     *   SPM INBOUND INVENTORY MONITORING
     *
@@ -142,12 +143,19 @@ class Dashboard extends CI_Controller
         $this->load->view('dashboard/footer');
     }
 
-     public function spmaddinboundinventory()
-     {
-         $this->load->view('dashboard/header');
-         $this->load->view('dashboard/spm/addinboundinventory');
-         $this->load->view('dashboard/footer');
-     }
+    public function spmaddinboundinventory()
+    {
+        $this->load->view('dashboard/header');
+        $this->load->view('dashboard/spm/addinboundinventory');
+        $this->load->view('dashboard/footer');
+    }
+
+    public function spmgetallpartno()
+    {
+        $postData = $this->input->post();
+        $result = $this->spminbound_model->get_all_part_no($postData);
+        echo json_encode($result);
+    }
 }
 
 /* End of file Dashboard.php */
