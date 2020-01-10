@@ -83,15 +83,21 @@ function deleteInboundItem(row) {
 function addInboundListItem() {
     var checknoitem = document.getElementById("noitem");
     var itemlist = document.getElementById("itemlistbody");
+    var itemrow = "<tr>" +
+        "<input type=\"hidden\" name=\"itemid[]\" value=\"" + _itemid + "\">" +
+        "<td><button type=\"button\" class=\"btn btn-danger btn-block\" onclick=\"deleteInboundItem(this)\">Remove</button></td>" +
+        "<th scope=\"row\"><input type=\"text\" readonly class=\"form-control-plaintext\" value=\"" + _partno + "\"></th>" +
+        "<td><input type=\"text\" class=\"form-control\" name=\"itemqty[]\" placeholder=\"Quantity\"></td>" +
+        "</tr>";
+
 
     if (checknoitem) {
         itemlist.deleteRow(0);
         console.log(itemlist);
     }
-    
-    if(_itemid)
-    {
-        /
+
+    if (_itemid) {
+        $("#itemlistbody").append(itemrow);
     }
 
 
@@ -128,7 +134,7 @@ $(function () {
         },
         select: function (event, ui) {
             // Set selection
-            console.log('PartNo: '+ ui.item.label +" Id: "+ ui.item.value );
+            console.log('PartNo: ' + ui.item.label + " Id: " + ui.item.value);
             _partno = ui.item.label;
             _itemid = ui.item.value;
             $("#finditem").val(ui.item.label); // display the selected text

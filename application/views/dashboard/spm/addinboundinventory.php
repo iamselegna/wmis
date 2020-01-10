@@ -51,7 +51,7 @@
                             </tr>
                         </thead>
                         <tbody id="itemlistbody">
-                            <tr>
+                            <tr id="noitem">
                                 <td colspan="3">Please Insert Item(s)</td>
                             </tr>
                             <!-- <tr>
