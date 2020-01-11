@@ -25,6 +25,7 @@ class Dashboard extends CI_Controller
         parent::__construct();
         $this->load->model('spmhubinventory_model');
         $this->load->model('spminbound_model');
+        $this->load->helper('date');
     }
 
     public function index()
@@ -148,6 +149,21 @@ class Dashboard extends CI_Controller
         $this->load->view('dashboard/header');
         $this->load->view('dashboard/spm/addinboundinventory');
         $this->load->view('dashboard/footer');
+    }
+
+    public function spminboundinventoryadditem()
+    {
+        $arno = $this->input->post("arno");
+        $datein = $this->input->post("datein");
+        $itemid = $this->input->post("itemid");
+        $itemqty = $this->input->post("itemqty");
+
+        $lastid = $this->spminbound_model->get_next_id_spm_inbound_inventory();
+
+        $result = $this->spminbound_model->add_spm_inbound_inventory($lastid, $itemid, $itemqty, $datein, $arno);
+        
+
+        print_r($result);
     }
 
     public function spmgetallpartno()

@@ -21,14 +21,14 @@
         </div>
         <div class="card-body">
 
-            <form method="post">
+            <form id="addspminboundinventoryform">
                 <div class="form-group row">
                     <label for="arno" class="col-sm-3 col-lg-4 col-form-label">Acknowledgement Receipt No.</label>
-                    <div class="col-sm-9 col-lg-8"><input type="text" class="form-control" id="arno"></div>
+                    <div class="col-sm-9 col-lg-8"><input type="text" class="form-control" name="arno" id="arno" required></div>
                 </div>
                 <div class="form-group row">
                     <label for="datein" class="col-sm-3 col-lg-4 col-form-label">Date In</label>
-                    <div class="col-sm-9 col-lg-8"><input type="date" class="form-control" id="datein"></div>
+                    <div class="col-sm-9 col-lg-8"><input type="date" class="form-control" name="datein" id="datein" required></div>
                 </div>
                 <fieldset class="border p-1 mb-4 py-2 px-2">
                     <legend class="w-auto">Add Items</legend>
