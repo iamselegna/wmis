@@ -98,7 +98,7 @@ class Spminbound_model extends CI_Model
             $dbqty = $row->StockOnHand;
             $newqty = ($dbqty + $itemqty[$key]);
 
-            $updatehubitem[] = array("ItemId" => $i, "StockOnHand" => $newqty);
+            $updatehubitem[] = array("ItemId" => $i, "StockOnHand" => $newqty, "LastUpdate" => mdate("%Y-%m-%d",time()));
         }
 
         $returnmessage['inbounditem'] = $inbounditem;
@@ -108,6 +108,7 @@ class Spminbound_model extends CI_Model
 
         $returnmessage['insertbatchquery'] = $this->db->last_query();
 
+        //Update Spm hub inventory Stock On Hand to new value
         $this->db->update_batch('spm_hub_inventory', $updatehubitem, 'ItemId');
 
         $returnmessage['updatebatchquery'] = $this->db->last_query();
