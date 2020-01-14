@@ -1,5 +1,6 @@
 var _partno = null;
 var _itemid = null;
+var _itemarr = [];
 
 $("#addspmitem").submit(function (event) {
     event.preventDefault();
@@ -45,9 +46,6 @@ $("#selectEntries").change(function (event) {
     event.preventDefault();
 
     $("#selectEntries option:selected").each(function () {
-        /* console.log($(this).text());
-        console.log($baseurl);
-        window.location.assign($baseurl+"?per_page="+$(this).text()); */
         $("#showEntries").submit();
     });
 
@@ -73,14 +71,12 @@ function deleteInboundItem(row) {
         y.appendChild(z);
     }
 
-
-
-
     console.log(itemlength);
 
 }
 
 function addInboundListItem() {
+
     var checknoitem = document.getElementById("noitem");
     var itemlist = document.getElementById("itemlistbody");
     var itemrow = "<tr>" +
@@ -90,29 +86,35 @@ function addInboundListItem() {
         "<td><input type=\"number\" class=\"form-control\" min=\"1\" max=\"99999\" name=\"itemqty[]\" placeholder=\"Quantity\" required></td>" +
         "</tr>";
 
-
-
-
     if (_itemid != null) {
+
         if (checknoitem) {
             itemlist.deleteRow(0);
             console.log(itemlist);
         }
+
+        if (_itemarr.find(checkIfExistingItem)) {
+            return false;
+        }
+
+        _itemarr.push(_itemid);
+
         $("#itemlistbody").append(itemrow);
     }
     else {
-        alert("Please select part no");
+        alert("Please select Part No.");
     }
 
+    _itemid = null;
+    $("#finditem").val("");
 
-    // var x = document.createElement("tr"); //CREATE TABLE ROW
-    // itemlist.appendChild(x); //ADD TABLE ROW TO ITEM LIST TABLE
+}
 
-    // var y = document.createElement("td"); //CREATE TABLE DATA
-    // var z = document.createTextNode("Please Insert Item(s)");
-    // y.setAttribute("colspan","3");
-    // x.appendChild(y);
-    // y.appendChild(z);
+function checkIfExistingItem(value, index, array) {
+    if (value == _itemid) {
+        alert("Item already exist, please try again.");
+        return true;
+    }
 }
 
 $(function () {
@@ -137,8 +139,12 @@ $(function () {
         select: function (event, ui) {
             // Set selection
             console.log('PartNo: ' + ui.item.label + " Id: " + ui.item.value);
+
             _partno = ui.item.label;
             _itemid = ui.item.value;
+
+
+
             $("#finditem").val(ui.item.label); // display the selected text
             //$('#userid').val(ui.item.value); // save selected id to input
             return false;

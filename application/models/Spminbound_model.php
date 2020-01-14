@@ -53,36 +53,68 @@ class Spminbound_model extends CI_Model
         return $response;
     }
 
-    public function get_next_id_spm_inbound_inventory()
+    public function add_spm_inbound_inventory($itemid, $itemqty, $datein, $arno)
     {
         $this->db->reconnect();
 
-        $query = $this->db->query("CALL GetNextIdSpmInboundInventory()");
-        $row = $query->row();
-        $lastid = $row->AUTO_INCREMENT;
-        $this->db->close();
-        return $lastid;
-    }
+        $inboundinventoryid = null;
 
-    public function add_spm_inbound_inventory($lastid, $itemid, $itemqty, $datein, $arno)
-    {
-        $this->db->reconnect();
+        $inbounditem = array();
+
+        $updatehubitem = array();
+
+        $returnmessage = array();
 
         $inboundinvdata = array('ArNo' => $arno, 'DateIn' => $datein);
 
-        $insert_inbound_inventory = $this->db->set($inboundinvdata)->get_compiled_insert('spm_inbound_inventory');
+        //INSERT INBOUND INVENTORY DATA
+        if ($this->db->insert('spm_inbound_inventory', $inboundinvdata)) {
 
-        //$this->db->query($insert_inbound_inventory);
-
-        $inbounditem[] = null;
-
-        foreach ($this->input->post() as $items) {
-            $inbounditem += array("ItemID" => $items->itemid, "Qty" => $items->itemqty);
+            //GET INSERT ID OF INBOUND DATA
+            $inboundinventoryid = $this->db->insert_id();
+            $returnmessage['insertid'] = $inboundinventoryid;
         }
+
+        //READY ARRAY DATA FOR BATCH INSERT
+        /* *
+         *
+         * $inbounditem = array(
+         *    array("ItemID" => ?,
+         *          "Qty" => ?,
+         *          "InboundId" => ?)
+         *   );
+         *
+         * */
+
+        foreach ($itemid as $key => $i) {
+            // Add item array
+            $inbounditem[] = array("ItemID" => $i, "Qty" => $itemqty[$key], "InboundId" => $inboundinventoryid);
+
+            // Select Hub Item Qty
+            $query = $this->db->select('StockOnHand')->from('spm_hub_inventory')
+                ->where('ItemId', $i)
+                ->get();
+            $row = $query->row();
+            $dbqty = $row->StockOnHand;
+            $newqty = ($dbqty + $itemqty[$key]);
+
+            $updatehubitem[] = array("ItemId" => $i, "StockOnHand" => $newqty);
+        }
+
+        $returnmessage['inbounditem'] = $inbounditem;
+
+        //INSERT INTO TABLE
+        $this->db->insert_batch('spm_inbound_inventory_item', $inbounditem);
+
+        $returnmessage['insertbatchquery'] = $this->db->last_query();
+
+        $this->db->update_batch('spm_hub_inventory', $updatehubitem, 'ItemId');
+
+        $returnmessage['updatebatchquery'] = $this->db->last_query();
 
         $this->db->close();
 
-        return $error;
+        return $returnmessage;
     }
 
     // ------------------------------------------------------------------------

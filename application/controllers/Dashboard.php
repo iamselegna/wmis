@@ -153,14 +153,15 @@ class Dashboard extends CI_Controller
 
     public function spminboundinventoryadditem()
     {
+        
+
         $arno = $this->input->post("arno");
         $datein = $this->input->post("datein");
         $itemid = $this->input->post("itemid");
         $itemqty = $this->input->post("itemqty");
 
-        $lastid = $this->spminbound_model->get_next_id_spm_inbound_inventory();
-
-        $result = $this->spminbound_model->add_spm_inbound_inventory($lastid, $itemid, $itemqty, $datein, $arno);
+        $result = $this->spminbound_model->add_spm_inbound_inventory($itemid, $itemqty, $datein, $arno);
+        
         
 
         print_r($result);
