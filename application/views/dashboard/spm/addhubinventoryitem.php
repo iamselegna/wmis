@@ -22,7 +22,7 @@
             <form class="form-inline" id="addspmitem" >
                 <label for="partno">Part No</label>
                 <div class="input-group" style="margin-left: 6px; margin-right: 6px;">
-                    <input type="text" name="partno" id="partno" class="form-control" palceholder="Add new item">
+                    <input type="text" name="partno" id="partno" class="form-control" palceholder="Add new item" required>
                 </div>
                 <button type="submit" class="btn btn-success btn-icon-split">
                     <span class="icon text-white-50">

@@ -25,7 +25,6 @@ class Dashboard extends CI_Controller
         parent::__construct();
         $this->load->model('spmhubinventory_model');
         $this->load->model('spminbound_model');
-        $this->load->helper('date');
     }
 
     public function index()
@@ -139,8 +138,56 @@ class Dashboard extends CI_Controller
      */
     public function spminboundmonitoring()
     {
+        $searchItem = $this->input->post('searchItem');
+        $selectEntries = $this->input->get('show_entries');
+        $limit = 0;
+
+        if ($selectEntries != null) {
+            $limit = $selectEntries;
+        } else {
+            $limit = 10;
+        }
+
+        $inboundcount = $this->spminbound_model->get_spm_inbound_count();
+
+        $paginationConfig['base_url'] = base_url('dashboard/spmhubinventory/');
+        $paginationConfig['per_page'] = $limit;
+        $paginationConfig['enable_query_strings'] = true;
+        $paginationConfig['uri_segment'] = 3;
+        $paginationConfig['reuse_query_string'] = true;
+
+        $paginationConfig['attributes'] =array('class'=>'page-link');
+
+        $paginationConfig['full_tag_open'] = '<nav aria-label="SPM Hub Inventory Pagination"><ul class="pagination justify-content-end">';
+        $paginationConfig['full_tag_close'] = '</ul></nav>';
+
+        $paginationConfig['first_tag_open'] = '<li class="page-item">';
+        $paginationConfig['first_tag_close'] = '</li>';
+
+        $paginationConfig['cur_tag_open'] = ' <li class="page-item active" aria-current="page"><span class="page-link">';
+        $paginationConfig['cur_tag_close'] = '</span></li>';
+
+        if ($searchItem !== null) {
+            $result = $this->spminbound_model->get_searched_inbound_inventory($searchItem);
+            $paginationConfig['total_rows'] = $result['numrows'];
+        } else {
+            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+            $result = $this->spminbound_model->get_all_inbound_inventory($page, $paginationConfig['per_page']);
+            $paginationConfig['total_rows'] = $inboundcount['ItemCount'];
+        }
+
+        
+
+        $this->pagination->initialize($paginationConfig);
+        $data = array(
+            'tabledata' => $result['tabledata'],
+            'totalrows' => $inboundcount['ItemCount'],
+            'pagelinks' => $this->pagination->create_links(),
+            'selectedEntries' => $limit
+        );
+
         $this->load->view('dashboard/header');
-        $this->load->view('dashboard/spm/inboundbody');
+        $this->load->view('dashboard/spm/inboundbody', $data);
         $this->load->view('dashboard/footer');
     }
 
@@ -153,8 +200,6 @@ class Dashboard extends CI_Controller
 
     public function spminboundinventoryadditem()
     {
-        
-
         $arno = $this->input->post("arno");
         $datein = $this->input->post("datein");
         $itemid = $this->input->post("itemid");

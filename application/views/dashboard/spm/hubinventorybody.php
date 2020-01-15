@@ -13,7 +13,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Add New Item</div>
-                            <a href="<?php echo base_url('dashboard/spmhubinventoryadditem');?>"
+                            <a href="<?php echo base_url('dashboard/spmhubinventoryadditem'); ?>"
                                 class="btn btn-success btn-icon-split">
                                 <span class="text">Add Item</span>
                             </a>
@@ -44,28 +44,6 @@
         </div>
     </div>
 
-    <!-- Add New SPM Hub Item -->
-    <!-- <div class="card shadow mb-4 border-bottom-primary">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Add Item</h6>
-        </div>
-        <div class="card-body">
-            <form class="form-inline" id="addspmitem">
-                <label for="partno">Part No</label>
-                <div class="input-group" style="margin-left: 6px; margin-right: 6px;">
-                    <input type="text" name="partno" id="partno" class="form-control" palceholder="Add new item">
-                </div>
-                <button type="submit" class="btn btn-success btn-icon-split">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-check"></i>
-                    </span>
-                    <span class="text">Submit</span>
-                </button>
-                <small id="spmadditemmessage" class="ml-2 form-text"></small>
-            </form>
-        </div>
-    </div> -->
-    <!-- End of Add New SPM Hub Item -->
 
     <!-- SPM Hub Item Table -->
     <div class="card shadow mb-4 border-bottom-primary">
@@ -76,7 +54,8 @@
             <form class="form-inline mb-2 float-left" method="post">
                 <label for="partno">Search</label>
                 <div class="input-group" style="margin-left: 6px; margin-right: 6px;">
-                    <input type="text" name="searchItem" id="searchItem" class="form-control" placeholder="Part No.">
+                    <input type="text" name="searchItem" id="searchItem" class="form-control" placeholder="Part No."
+                        required>
                 </div>
                 <button type="submit" class="btn btn-success btn-icon-split">
                     <span class="icon text-white-50">
@@ -100,22 +79,28 @@
             </form>
 
             <table class="table table-bordered table-striped table-hover">
-                <caption><?php echo $totalrows;?> Items <?php echo $pagelinks;?></caption>
+                <caption><?php echo $totalrows; ?> Items <?php echo $pagelinks; ?></caption>
                 <thead class="thead-dark">
                     <tr>
+                        <th>Edit</th>
                         <th>Part No.</th>
                         <th>Stock on Hand</th>
+                        <th>Last Update</th>
                     </tr>
                 </thead>
                 <tbody>
+
+
                     <?php
-foreach ($tabledata as $rows) {
-    echo '<tr>';
-    echo '<td scope="row">' . $rows['PartNo'] . '</td>';
-    echo '<td>' . $rows['StockOnHand'] . '</td>';
-    echo '</tr>';
-}
-?>
+            foreach ($tabledata as $rows) {
+                echo '<tr>';
+                echo '<td scope="row"><a class="btn btn-primary btn-block" href="' . base_url('dashboard/updatespmhubitem/' . $rows['ItemId']) . '" role="button">Edit</a></td>';
+                echo '<td scope="row">' . $rows['PartNo'] . '</td>';
+                echo '<td>' . $rows['StockOnHand'] . '</td>';
+                echo '<td>' . mdate("%Y-%m-%d", strtotime($rows['LastUpdate'])) . '</td>';
+                echo '</tr>';
+            }
+        ?>
                 </tbody>
             </table>
         </div>

@@ -98,7 +98,7 @@ class Spminbound_model extends CI_Model
             $dbqty = $row->StockOnHand;
             $newqty = ($dbqty + $itemqty[$key]);
 
-            $updatehubitem[] = array("ItemId" => $i, "StockOnHand" => $newqty, "LastUpdate" => mdate("%Y-%m-%d",time()));
+            $updatehubitem[] = array("ItemId" => $i, "StockOnHand" => $newqty, "LastUpdate" => mdate("%Y-%m-%d", time()));
         }
 
         $returnmessage['inbounditem'] = $inbounditem;
@@ -116,6 +116,45 @@ class Spminbound_model extends CI_Model
         $this->db->close();
 
         return $returnmessage;
+    }
+
+    public function get_spm_inbound_count()
+    {
+        $this->db->reconnect();
+
+        $query = $this->db->query('Call GetSpmInboundInventoryCount()');
+        $rows = $query->row();
+        if ($rows !== null) {
+            $data = array('ItemCount' => $rows->ItemCount);
+            return $data;
+        }
+        $this->db->close();
+    }
+
+    public function get_all_inbound_inventory($offset,$limit)
+    {
+        $this->db->reconnect();
+
+        $query = $this->db->query('Call ViewAllSpmInboundInventory(' . $offset . ',' . $limit . ')');
+
+        $result = array('tabledata' => $query->result_array(), 'numrows' => $query->num_rows());
+
+        return $result;
+
+        $this->db->close();
+    }
+
+    public function get_searched_inbound_inventory($searchItem)
+    {
+        $this->db->reconnect();
+
+        $query = $this->db->query('CALL SearchSpmInboundInventory(' . $searchItem . ')');
+
+        $result = array('tabledata' => $query->result_array(), 'numrows' => $query->num_rows());
+
+        return $result;
+
+        $this->db->close();
     }
 
     // ------------------------------------------------------------------------

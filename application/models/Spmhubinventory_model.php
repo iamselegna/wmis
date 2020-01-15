@@ -35,16 +35,16 @@ class Spmhubinventory_model extends CI_Model
     }
 
     /*
-    *
-    *
-    */
+     *
+     *
+     */
     //Calls SPM Hub Inventory Table Stored Procedure *ViewAllSpmHubInventory
     //Display Data to Table
     public function get_all_hub_item($offset, $limit)
     {
         $this->db->reconnect();
 
-        $query = $this->db->query('Call ViewAllSpmHubInventory('.$offset.','.$limit.')');
+        $query = $this->db->query('Call ViewAllSpmHubInventory(' . $offset . ',' . $limit . ')');
 
         $result = array('tabledata' => $query->result_array(), 'numrows' => $query->num_rows());
 
@@ -53,12 +53,11 @@ class Spmhubinventory_model extends CI_Model
         $this->db->close();
     }
 
-
     public function get_searched_hub_item($searchItem)
     {
         $this->db->reconnect();
 
-        $query = $this->db->query('CALL SearchSpmHubInventory('.$searchItem.')');
+        $query = $this->db->query('CALL SearchSpmHubInventory(' . $searchItem . ')');
 
         $result = array('tabledata' => $query->result_array(), 'numrows' => $query->num_rows());
 
@@ -73,8 +72,8 @@ class Spmhubinventory_model extends CI_Model
         $result = null;
 
         $query = $this->db->select('PartNo')
-        ->where('PartNo', $partNo)
-        ->get('spm_hub_inventory');
+            ->where('PartNo', $partNo)
+            ->get('spm_hub_inventory');
 
         if ($query->num_rows() >= 1) {
             $result = array(
@@ -83,7 +82,7 @@ class Spmhubinventory_model extends CI_Model
         } else {
             try {
                 $this->db->reconnect();
-                $this->db->query('Call AddSpmHubInventoryItem(?)', $partNo);
+                $this->db->query('Call AddSpmHubInventoryItem(?,?)', array('PartNo' => $partNo, 'LastUpdate' => mdate("%Y-%m-%d", time())));
                 $this->db->close();
                 $result = array(
                     'error' => false,
@@ -105,7 +104,7 @@ class Spmhubinventory_model extends CI_Model
         $query = $this->db->query('Call GetSpmHubInventoryItemCount()');
         $rows = $query->row();
         if ($rows !== null) {
-            $data = array('StockCount' => $rows->StockCount, 'ItemCount'=>$rows->ItemCount);
+            $data = array('StockCount' => $rows->StockCount, 'ItemCount' => $rows->ItemCount);
             return $data;
         }
         $this->db->close();
