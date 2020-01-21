@@ -179,11 +179,7 @@ $("#addspminboundinventoryform").submit(function (event) {
                 console.log(response.message);
             }
             else {
-                $("#partno").val('');
-                $("#spmadditemmessage").html(response.message);
-                $("#spmadditemmessage").removeClass("text-danger");
-                $("#spmadditemmessage").addClass("text-info");
-                console.log(response.message);
+             window.location.replace('spminboundinventoryaddsuccess');
             }
         },
         error: function (response) {

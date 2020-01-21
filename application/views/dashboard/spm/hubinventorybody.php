@@ -94,7 +94,7 @@
                     <?php
             foreach ($tabledata as $rows) {
                 echo '<tr>';
-                echo '<td scope="row"><a class="btn btn-primary btn-block" href="' . base_url('dashboard/updatespmhubitem/' . $rows['ItemId']) . '" role="button">Edit</a></td>';
+                echo '<td scope="row"><a class="btn btn-primary btn-block" href="' . base_url('dashboard/updatehubitem/' . $rows['ItemId']) . '" role="button">Edit</a></td>';
                 echo '<td scope="row">' . $rows['PartNo'] . '</td>';
                 echo '<td>' . $rows['StockOnHand'] . '</td>';
                 echo '<td>' . mdate("%Y-%m-%d", strtotime($rows['LastUpdate'])) . '</td>';

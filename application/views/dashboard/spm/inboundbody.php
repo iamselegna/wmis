@@ -81,7 +81,7 @@
                             <?php
             foreach ($tabledata as $rows) {
                 echo '<tr>';
-                echo '<td scope="row"><a class="btn btn-primary btn-block" href="' . base_url('dashboard/updatespmhubitem/' . $rows['InboundId']) . '" role="button">View Details</a></td>';
+                echo '<td scope="row"><a class="btn btn-primary btn-block" href="' . base_url('dashboard/viewspminbounddetails/' . $rows['InboundId']) . '" role="button">View Details</a></td>';
                 echo '<td scope="row">' . $rows['ArNo'] . '</td>';
                 echo '<td>' . mdate("%Y-%m-%d", strtotime($rows['DateIn'])) . '</td>';
                 echo '</tr>';

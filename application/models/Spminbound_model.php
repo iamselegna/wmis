@@ -75,17 +75,6 @@ class Spminbound_model extends CI_Model
             $returnmessage['insertid'] = $inboundinventoryid;
         }
 
-        //READY ARRAY DATA FOR BATCH INSERT
-        /* *
-         *
-         * $inbounditem = array(
-         *    array("ItemID" => ?,
-         *          "Qty" => ?,
-         *          "InboundId" => ?)
-         *   );
-         *
-         * */
-
         foreach ($itemid as $key => $i) {
             // Add item array
             $inbounditem[] = array("ItemID" => $i, "Qty" => $itemqty[$key], "InboundId" => $inboundinventoryid);
@@ -113,6 +102,8 @@ class Spminbound_model extends CI_Model
 
         $returnmessage['updatebatchquery'] = $this->db->last_query();
 
+        $returnmessage['error'] = FALSE;
+        $returnmessage['redirect'] = base_url('/dashboard/spminboundinventoryaddsuccess');
         $this->db->close();
 
         return $returnmessage;

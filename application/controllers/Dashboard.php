@@ -207,9 +207,16 @@ class Dashboard extends CI_Controller
 
         $result = $this->spminbound_model->add_spm_inbound_inventory($itemid, $itemqty, $datein, $arno);
         
-        
-
         print_r($result);
+        //redirect('/dashboard/spminboundinventoryaddsuccess');
+        //print_r($result);
+    }
+
+    public function spminboundinventoryaddsuccess()
+    {
+        $this->load->view('dashboard/header');
+        $this->load->view('dashboard/spm/spminboundinvadditemsuccess');
+        $this->load->view('dashboard/footer');
     }
 
     public function spmgetallpartno()
@@ -217,6 +224,11 @@ class Dashboard extends CI_Controller
         $postData = $this->input->post();
         $result = $this->spminbound_model->get_all_part_no($postData);
         echo json_encode($result);
+    }
+
+    public function viewspminbounddetails($id)
+    {
+
     }
 }
 
