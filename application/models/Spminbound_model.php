@@ -102,7 +102,7 @@ class Spminbound_model extends CI_Model
 
         $returnmessage['updatebatchquery'] = $this->db->last_query();
 
-        $returnmessage['error'] = FALSE;
+        $returnmessage['error'] = false;
         $returnmessage['redirect'] = base_url('/dashboard/spminboundinventoryaddsuccess');
         $this->db->close();
 
@@ -122,7 +122,7 @@ class Spminbound_model extends CI_Model
         $this->db->close();
     }
 
-    public function get_all_inbound_inventory($offset,$limit)
+    public function get_all_inbound_inventory($offset, $limit)
     {
         $this->db->reconnect();
 
@@ -145,6 +145,19 @@ class Spminbound_model extends CI_Model
 
         return $result;
 
+        $this->db->close();
+    }
+
+    public function get_inbound_inventory_details($id)
+    {
+        $this->db->reconnect();
+
+        $query = $this->db->query('CALL GetSpmInboundInventoryViewDetails('.$id.')');
+
+        $result = $query->result_array();
+
+        return $result;
+        
         $this->db->close();
     }
 
