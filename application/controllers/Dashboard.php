@@ -228,13 +228,24 @@ class Dashboard extends CI_Controller
 
     public function viewspminbounddetails($id)
     {
-        $data['result'] = $this->spminbound_model->get_inbound_inventory_details($id);
+        $data = $this->spminbound_model->get_inbound_inventory_details($id);
 
         //print_r($data);
 
-        $this->load->view('dashboard/header');
-        $this->load->view('dashboard/spm/spminboundinventoryviewdetails', $data);
-        $this->load->view('dashboard/footer');
+        //echo $data['arno'];
+        //echo $data['datein'];
+       print_r($data);
+
+       for ($i=0; $i < $data['numrows']; $i++) { 
+           echo '<br>'.$data[$i]['PartNo'];
+       }
+        // echo json_encode($data);
+        // foreach ($data['items'] as $key => $i) {
+        //    print_r($data[$i]);
+        // }
+        //$this->load->view('dashboard/header');
+        //$this->load->view('dashboard/spm/spminboundinventoryviewdetails', $data);
+        //$this->load->view('dashboard/footer');
     }
 }
 

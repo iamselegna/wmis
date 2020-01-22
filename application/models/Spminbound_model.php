@@ -150,13 +150,26 @@ class Spminbound_model extends CI_Model
 
     public function get_inbound_inventory_details($id)
     {
+        $resultdata = array();
+
         $this->db->reconnect();
 
         $query = $this->db->query('CALL GetSpmInboundInventoryViewDetails('.$id.')');
 
+        $row = $query->row();
+
         $result = $query->result_array();
 
-        return $result;
+        $resultdata['arno'] = $row->ArNo;
+        $resultdata['datein'] = $row->DateIn;
+        $resultdata['numrows'] = $query->num_rows();
+
+        foreach ($result as $key) {
+            $resultdata[] = array('PartNo' => $key['PartNo'], 'Qty' => $key['Qty']);
+        }
+
+        //$resultdata['items'] = $resultitems;
+        return $resultdata;
         
         $this->db->close();
     }
