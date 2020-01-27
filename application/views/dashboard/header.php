@@ -68,7 +68,7 @@
             <h6 class="collapse-header">Inventory Management</h6>
             <a class="collapse-item" href="<?php echo base_url('dashboard/spmhubinventory'); ?>">Hub Inventory</a>
             <a class="collapse-item" href="<?php echo base_url('dashboard/spminboundmonitoring'); ?>">Inbound Monitoring</a>
-            <a class="collapse-item" href="cards.html">Outbound Monitoring</a>
+            <a class="collapse-item" href="<?php echo base_url('dashboard/spmoutboundmonitoring'); ?>">Outbound Monitoring</a>
           </div>
         </div>
       </li>

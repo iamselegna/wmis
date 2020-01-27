@@ -39,7 +39,7 @@
                         <label for="partno">Search</label>
                         <div class="input-group" style="margin-left: 6px; margin-right: 6px;">
                             <input type="text" name="searchItem" id="searchItem" class="form-control"
-                                placeholder="Part No." required>
+                                placeholder="AR No." required>
                         </div>
                         <button type="submit" class="btn btn-success btn-icon-split">
                             <span class="icon text-white-50">
@@ -83,7 +83,7 @@
                 echo '<tr>';
                 echo '<td scope="row"><a class="btn btn-primary btn-block" href="' . base_url('dashboard/viewspminbounddetails/' . $rows['InboundId']) . '" role="button">View Details</a></td>';
                 echo '<td scope="row">' . $rows['ArNo'] . '</td>';
-                echo '<td>' . mdate("%Y-%m-%d", strtotime($rows['DateIn'])) . '</td>';
+                echo '<td>' . date('F j, Y', strtotime($rows['DateIn'])) . '</td>';
                 echo '</tr>';
             }
         ?>
