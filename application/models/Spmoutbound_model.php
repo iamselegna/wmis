@@ -34,9 +34,14 @@ class Spmoutbound_model extends CI_Model {
     // 
   }
 
-  public function create()
+  public function insert_outbound()
   {
-    
+    $this->db->reconnect();
+
+    $data = array('apcdrno' => $this->input->post('apcdrno'),
+    'wmdrno'=> $this->input->post('wmdrno'));
+
+    $this->db->close();
   }
 
   // ------------------------------------------------------------------------
