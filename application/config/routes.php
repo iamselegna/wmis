@@ -52,7 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'dashboard';
 
 $route['dashboard/spmoutbound/monitor'] = 'outbound';
-$route['dashboard/spmoutboundinventory/createOutbound'] = 'outbound/store';
+$route['dashboard/spmoutbound/addOutbound'] = 'outbound/create';
+$route['dashboard/spmoutbound/createOutbound'] = 'outbound/store';
+$route['dashboard/spmoutbound/viewdetails/(:any)'] = 'outbound/view/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

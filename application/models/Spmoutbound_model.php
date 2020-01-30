@@ -136,6 +136,78 @@ class Spmoutbound_model extends CI_Model
          */
         $query = $this->db->query($queries);
         return $query;
+
+        
+    }
+
+    public function get_all_outbound_inventory($offset, $limit)
+    {
+        $this->db->reconnect();
+
+        $query = $this->db->query('Call ViewAllSpmOutboundInventory(' . $offset . ',' . $limit . ')');
+
+        $result = array('tabledata' => $query->result_array(), 'numrows' => $query->num_rows());
+
+        return $result;
+
+        $this->db->close();
+    }
+
+    public function get_spm_outbound_count()
+    {
+        $this->db->reconnect();
+
+        $query = $this->db->query('Call GetSpmOutboundInventoryCount()');
+        $rows = $query->row();
+        if ($rows !== null) {
+            $data = array('ItemCount' => $rows->ItemCount);
+            return $data;
+        }
+        $this->db->close();
+    }
+
+    public function get_searched_outbound_inventory($searchItem)
+    {
+        $this->db->reconnect();
+
+        $query = $this->db->query('CALL SearchSpmOutboundInventory(' . $searchItem . ')');
+
+        $result = array('tabledata' => $query->result_array(), 'numrows' => $query->num_rows());
+
+        return $result;
+
+        $this->db->close();
+    }
+
+    public function get_outbound_inventory_details($id)
+    {
+        $resultdata = array();
+
+        $this->db->reconnect();
+
+        $query = $this->db->query('CALL GetSpmOutboundInventoryViewDetails(\''.$id.'\')');
+
+        $row = $query->row();
+
+        $result = $query->result_array();
+
+        $resultdata['outboundid'] = $row->OutboundId;
+        $resultdata['wmdrno'] = $row->WmDrNo;
+        $resultdata['apcdrno'] = $row->ApcDrNo;
+        $resultdata['controlseries'] = $row->ControlSeries;
+        $resultdata['dateout'] = $row->DateOut;
+        $resultdata['facility'] = $row->FacilityName;
+        $resultdata['vehicleplate'] = $row->VehiclePlate;
+        $resultdata['numrows'] = $query->num_rows();
+
+        foreach ($result as $key) {
+            $resultdata[] = array('PartNo' => $key['PartNo'], 'Qty' => $key['Qty']);
+        }
+
+        //$resultdata['items'] = $resultitems;
+        return $resultdata;
+        
+        $this->db->close();
     }
 
     // ------------------------------------------------------------------------

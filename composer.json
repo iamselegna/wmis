@@ -15,7 +15,8 @@
 		"php": ">=5.3.7",
 		"datatables/datatables": "^1.10",
 		"nnnick/chartjs": "^2.9",
-		"components/jqueryui": "^1.12"
+		"components/jqueryui": "^1.12",
+		"tecnickcom/tc-lib-pdf": "dev-master"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
@@ -23,5 +24,12 @@
 	"require-dev": {
 		"mikey179/vfsStream": "1.1.*",
 		"phpunit/phpunit": "4.* || 5.*"
-	}
+	},
+	"repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:tecnickcom/tc-lib-pdf.git"
+		}
+	]
+    
 }
